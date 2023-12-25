@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DataAccessLayer.MobileDetail>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManufactureName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateofMaufacture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearofMaufacture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManufactureName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateofMaufacture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearofMaufacture)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.MobileId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.MobileId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.MobileId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

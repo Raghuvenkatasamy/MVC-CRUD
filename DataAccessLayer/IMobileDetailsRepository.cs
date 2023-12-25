@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DataAccessLayer
 {
-    public class IMobileDetailsRepository
+    public interface IMobileDetailsRepository
     {
-        public MobileDetail Insert(MobileDetail MD);
-        public IEnumerable<MobileDetail> Read();
-        public MobileDetail DeleteRecord(long id);
-        public MobileDetail Update(long id, MobileDetail MDS);
+        public MobileDetail InsertMVC(MobileDetail MD);
+        public IEnumerable<MobileDetail> ReadMVC();
+        public MobileDetail ReadbynumberSP(long id);
+        public MobileDetail DeleteRecordMVC(long id);
+        public MobileDetail UpdateMVC(long id, MobileDetail MDS);
 
     }
 }
