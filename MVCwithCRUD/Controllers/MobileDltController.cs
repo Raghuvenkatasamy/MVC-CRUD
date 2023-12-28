@@ -5,15 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer;
+using Microsoft.Extensions.Configuration;
 
 namespace MVCwithCRUD.Controllers
 {
     public class MobileDltController : Controller
     {
         private readonly IMobileDetailsRepository _mDtl;
-        public MobileDltController()
+        private readonly string _configuration;
+        public MobileDltController(IMobileDetailsRepository mdtl, IConfiguration configuration)
         {
-            _mDtl = new MobileDetailsRepository();
+            _mDtl = mdtl;
+            _configuration = configuration.GetConnectionString("DbConnection");
         }
         // GET: MobileDetailsController1
         public ActionResult Index()
@@ -42,8 +45,20 @@ namespace MVCwithCRUD.Controllers
         {
             try
             {
-                _mDtl.InsertMVC(values);
-                return RedirectToAction(nameof(Index));
+                if (values.DateofMaufacture < DateTime.Today)
+                {
+                    ModelState.AddModelError("DateofMaufacture", "DOM should be less than today");
+                    return View("Create",values);
+                }
+                if (ModelState.IsValid) {
+                    _mDtl.InsertMVC(values);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View("Create",values);
+                }
+               
             }
             catch
             {
@@ -65,8 +80,21 @@ namespace MVCwithCRUD.Controllers
         {
             try
             {
-                _mDtl.UpdateMVC(id,values);
-                return RedirectToAction(nameof(Index));
+                if (values.DateofMaufacture < DateTime.Today)
+                {
+                    ModelState.AddModelError("DateofMaufacture", "DOM should be less than today");
+                    return View("Edit", values);
+                }
+                if (ModelState.IsValid)
+                {
+                    _mDtl.UpdateMVC(id, values);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View("Edit", values);
+                }
+                
             }
             catch
             {

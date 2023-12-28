@@ -5,13 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+
 
 namespace DataAccessLayer
 {
    public class MobileDetailsRepository:IMobileDetailsRepository
     {
-        public string connectionString = "Data source=DESKTOP-23V7KHU;initial catalog=batch7;user id=sa;password=Anaiyaan@123;";
-
+        public string connectionString;
+        public MobileDetailsRepository(IConfiguration configuration)
+        {
+            connectionString = configuration.GetConnectionString("DbConnection");
+        }
         public MobileDetail InsertMVC(MobileDetail MD)
         {
             try
