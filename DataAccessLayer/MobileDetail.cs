@@ -11,9 +11,11 @@ namespace DataAccessLayer
 
         [Required(ErrorMessage = "Please enter your name"), MaxLength(50)]
         [StringLength(50, ErrorMessage = "Please do not enter values over 50 characters")]
+        [RegularExpression("[A-Z]+[a-z]*",ErrorMessage = "Please enter correct formate 1-Caps is Required")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Please enter your name"), MaxLength(50)]
         [StringLength(100, ErrorMessage = "Please do not enter values over 100 characters")]
+        [RegularExpression("[A-Z]+[a-z]*", ErrorMessage = "Please enter correct formate")]
         public string ManufactureName { get; set; }
         [Required]
         public DateTime DateofMaufacture { get; set; }

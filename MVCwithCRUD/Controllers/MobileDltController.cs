@@ -18,24 +18,46 @@ namespace MVCwithCRUD.Controllers
             _mDtl = mdtl;
             _configuration = configuration.GetConnectionString("DbConnection");
         }
+
         // GET: MobileDetailsController1
         public ActionResult Index()
         {
-            var list=_mDtl.ReadMVC();
-            return View("List", list);
+            try
+            {
+                var list = _mDtl.ReadMVC();
+                return View("List", list);
+            }
+            catch
+            {
+                return View("Error");
+            }
         }
 
         // GET: MobileDetailsController1/Details/5
         public ActionResult Details(int id)
         {
-            var num = _mDtl.ReadbynumberSP(id);
-            return View("Details",num);
+            try
+            {
+                var num = _mDtl.ReadbynumberSP(id);
+                return View("Details", num);
+            }
+            catch
+            {
+                return View("Error");
+            }
         }
 
         // GET: MobileDetailsController1/Create
         public ActionResult Create()
         {
-            return View("Create",new MobileDetail());
+            try
+            {
+                return View("Create", new MobileDetail());
+            }
+            catch
+            {
+                return View("Error");
+            }
         }
 
         // POST: MobileDetailsController1/Create
@@ -62,15 +84,22 @@ namespace MVCwithCRUD.Controllers
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
 
         // GET: MobileDetailsController1/Edit/5
         public ActionResult Edit(int id)
         {
-            var num = _mDtl.ReadbynumberSP(id);
-            return View("Edit",num);
+            try
+            {
+                var num = _mDtl.ReadbynumberSP(id);
+                return View("Edit", num);
+            }
+            catch
+            {
+                return View("Error");
+            }
         }
 
         // POST: MobileDetailsController1/Edit/5
@@ -105,8 +134,15 @@ namespace MVCwithCRUD.Controllers
         // GET: MobileDetailsController1/Delete/5
         public ActionResult Delete(int id)
         {
-           var num= _mDtl.ReadbynumberSP(id);
-            return View("Delete",num);
+            try
+            {
+                var num = _mDtl.ReadbynumberSP(id);
+                return View("Delete", num);
+            }
+            catch
+            {
+                return View("Error");
+            }
         }
 
         // POST: MobileDetailsController1/Delete/5
@@ -122,7 +158,7 @@ namespace MVCwithCRUD.Controllers
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
     }
