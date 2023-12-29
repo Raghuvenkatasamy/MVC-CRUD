@@ -45,7 +45,7 @@ namespace MVCwithCRUD.Controllers
         {
             try
             {
-                if (values.DateofMaufacture < DateTime.Today)
+                if (values.DateofMaufacture > DateTime.Today)
                 {
                     ModelState.AddModelError("DateofMaufacture", "DOM should be less than today");
                     return View("Create",values);
@@ -80,7 +80,7 @@ namespace MVCwithCRUD.Controllers
         {
             try
             {
-                if (values.DateofMaufacture < DateTime.Today)
+                if (values.DateofMaufacture > DateTime.Today)
                 {
                     ModelState.AddModelError("DateofMaufacture", "DOM should be less than today");
                     return View("Edit", values);

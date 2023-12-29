@@ -18,7 +18,7 @@ namespace DataAccessLayer
         [Required]
         public DateTime DateofMaufacture { get; set; }
         [Required]
-        [RegularExpression("[0-9],{4}",ErrorMessage = "Please enter correct email address")]
+        [RegularExpression("[0-9]{4}",ErrorMessage = "Please enter correct formate")]
         public long YearofMaufacture { get; set; }
         [Required]
         [Range(0, 20, ErrorMessage = "Please enter the correct value it should in b/w 0-20")]
