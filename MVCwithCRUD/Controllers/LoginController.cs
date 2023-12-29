@@ -8,19 +8,62 @@ using Microsoft.Extensions.Configuration;
 
 namespace MVCwithCRUD.Controllers
 {
+    public class logindlt
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+
+    }
     public class LoginController : Controller
     {
         private readonly string _userid;
         private readonly string _password;
+       
         public LoginController(IConfiguration configuration)
         {
             _userid = configuration.GetValue<string>("Login:Username");
             _password = configuration.GetValue<string>("Login:PasswordKey");
+           
         }
         // GET: LoginController1
         public ActionResult Index()
         {
             return View("LoginPage");
+        }
+
+
+        //validation
+        public ActionResult authentication(logindlt log)
+        {
+            try
+            {
+                //List<logindlt> users = _match.GetSection("Login").Get<List<logindlt>>();
+
+                //var user = users.FirstOrDefault(u => u.Username == username && u.Password == password);
+
+                if (log.Username ==_userid && log.Password ==_password)
+                {
+                    // Authentication successful
+                    // You can set authentication cookies or session variables here
+                    // For demonstration, setting a session variable
+                    ModelState.AddModelError("Username", "Invalid username or userid");
+                    ModelState.AddModelError("Password", "Invalid username or password");
+                    return View(authentication(log));
+                }
+                if (ModelState.IsValid)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return View(authentication(log));
+                }
+            
+            }
+            catch
+            {
+                return View("Error");
+            }
         }
 
         // GET: LoginController1/Details/5
