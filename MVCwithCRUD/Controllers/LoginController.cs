@@ -37,19 +37,14 @@ namespace MVCwithCRUD.Controllers
         {
             try
             {
-                //List<logindlt> users = _match.GetSection("Login").Get<List<logindlt>>();
-
-                //var user = users.FirstOrDefault(u => u.Username == username && u.Password == password);
-
+                
                 if (log.Username ==_userid && log.Password ==_password)
                 {
-                    return View("Conformation");
+                    return Redirect("/Mobiledlt/index");
                 }
                 else
                 {
-                    // Authentication successful
-                    // You can set authentication cookies or session variables here
-                    // For demonstration, setting a session variable
+                   
                     ModelState.AddModelError("Username", "Invalid username or userid");
                     ModelState.AddModelError("Password", "Invalid username or password");
                     return View("LoginPage");
