@@ -43,20 +43,16 @@ namespace MVCwithCRUD.Controllers
 
                 if (log.Username ==_userid && log.Password ==_password)
                 {
+                    return View("Conformation");
+                }
+                else
+                {
                     // Authentication successful
                     // You can set authentication cookies or session variables here
                     // For demonstration, setting a session variable
                     ModelState.AddModelError("Username", "Invalid username or userid");
                     ModelState.AddModelError("Password", "Invalid username or password");
-                    return View(authentication(log));
-                }
-                if (ModelState.IsValid)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    return View(authentication(log));
+                    return View("LoginPage");
                 }
             
             }
