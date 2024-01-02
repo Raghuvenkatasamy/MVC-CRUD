@@ -24,7 +24,6 @@ namespace DataAccessLayer
                 var con = new SqlConnection(connectionString);
                 con.Open();
                 con.Execute($"exec InsertMobileDetail '{MD.Name}','{MD.ManufactureName}','{MD.DateofMaufacture.ToString("M/d/y")}',{MD.YearofMaufacture},{MD.Quantity}");
-
                 con.Close();
 
             }

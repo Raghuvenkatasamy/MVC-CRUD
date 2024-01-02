@@ -10,18 +10,18 @@ namespace MVCwithCRUD.Controllers
 {
     public class logindlt
     {
-        public string Username { get; set; }
+        public string Email { get; set; }
         public string Password { get; set; }
 
     }
     public class LoginController : Controller
     {
-        private readonly string _userid;
+        private readonly string _Email;
         private readonly string _password;
        
         public LoginController(IConfiguration configuration)
         {
-            _userid = configuration.GetValue<string>("Login:Username");
+            _Email = configuration.GetValue<string>("Login:Username");
             _password = configuration.GetValue<string>("Login:PasswordKey");
            
         }
@@ -33,20 +33,18 @@ namespace MVCwithCRUD.Controllers
 
 
         //validation
-        public ActionResult authentication(logindlt log)
+        public ActionResult Authentication(logindlt log)
         {
             try
             {
                 
-                if (log.Username ==_userid && log.Password ==_password)
+                if (log.Email ==_Email && log.Password ==_password)
                 {
                     return Redirect("/Mobiledlt/index");
                 }
                 else
                 {
-                   
-                    ModelState.AddModelError("Username", "Invalid username or userid");
-                    ModelState.AddModelError("Password", "Invalid username or password");
+                    ModelState.AddModelError("Password","Invalid Email or password");
                     return View("LoginPage");
                 }
             
