@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using DataAccessLayer;
 
 namespace MVCwithCRUD.Controllers
 {
@@ -16,15 +17,25 @@ namespace MVCwithCRUD.Controllers
     }
     public class LoginController : Controller
     {
-        private readonly string _Email;
-        private readonly string _password;
+        //private readonly string _Email;
+        //private readonly string _password;
        
-        public LoginController(IConfiguration configuration)
-        {
-            _Email = configuration.GetValue<string>("Login:Username");
-            _password = configuration.GetValue<string>("Login:PasswordKey");
+        //public LoginController(IConfiguration configuration)
+        //{
+        //    _Email = configuration.GetValue<string>("Login:Username");
+        //    _password = configuration.GetValue<string>("Login:PasswordKey");
            
+        //}
+
+        private readonly IRegistrationRepository _reg;
+        private readonly string _configuration;
+        public LoginController(IRegistrationRepository reg, IConfiguration configuration)
+        {
+            _reg = reg;
+            _configuration = configuration.GetConnectionString("DbConnection");
         }
+
+
         // GET: LoginController1
         public ActionResult Index()
         {
@@ -37,8 +48,10 @@ namespace MVCwithCRUD.Controllers
         {
             try
             {
+                var resultreg =_reg.Login(log.Email,log.Password);
+
                 
-                if (log.Email ==_Email && log.Password ==_password)
+                if (resultreg == true)
                 {
                     return Redirect("/Mobiledlt/index");
                 }

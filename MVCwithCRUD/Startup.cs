@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace MVCwithCRUD
 {
@@ -24,7 +25,13 @@ namespace MVCwithCRUD
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var conncetionString = Configuration.GetConnectionString("DbConnection");
+
+            services.AddDbContext<SampleDbContext>(values => values.UseSqlServer(conncetionString));
+
             services.AddTransient<IMobileDetailsRepository,MobileDetailsRepository>();
+            services.AddTransient<IRegistrationRepository,RegistrationRepository>();
+
             services.AddControllersWithViews();
         }
 
