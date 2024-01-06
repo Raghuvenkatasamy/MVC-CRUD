@@ -42,7 +42,6 @@ namespace MVCwithCRUD.Controllers
             return View("LoginPage");
         }
 
-
         //validation
         public ActionResult Authentication(logindlt log)
         {

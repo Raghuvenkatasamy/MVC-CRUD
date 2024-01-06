@@ -21,7 +21,16 @@ namespace DataAccessLayer
 
         public IEnumerable<Registration> GetAllRegistration()
         {
-            throw new NotImplementedException();
+            try
+            {
+                int all =_regcontext.Database.ExecuteSqlRaw($"");
+
+                return all.to
+            }
+            catch(Exception ex)
+            {
+                throw;
+            }
         }
 
         public void Insert(Registration product)
@@ -40,13 +49,16 @@ namespace DataAccessLayer
         {
             try
             {
-                var result =_regcontext.Registration.FromSqlRaw<Registration>($"exec Checkpassword '{username}','{password}'").ToList();
+                var res =_regcontext.Registration.FromSqlRaw<Registration>($"exec Checkpassword '{username}','{password}'").ToList();
 
-                if (result != null || result.Count > 0)
+                if (res != null || res.Count > 0)
+                {
                     return true;
+                }
                 else
+                {
                     return false;
-
+                }
             }
             catch (Exception ex)
             {
