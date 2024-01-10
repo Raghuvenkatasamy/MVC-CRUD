@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-   public class RegistrationRepository : IRegistrationRepository
+    public class RegistrationRepository : IRegistrationRepository
     {
         private readonly SampleDbContext _regcontext;
         public RegistrationRepository(SampleDbContext context)
@@ -21,16 +19,17 @@ namespace DataAccessLayer
 
         public IEnumerable<Registration> GetAllRegistration()
         {
+           
             try
             {
-                int all =_regcontext.Database.ExecuteSqlRaw($"");
-
-                return all.to
+                IEnumerable<Registration> all =_regcontext.Registration.FromSqlRaw<Registration>($"exec Getall");
+                return all.ToList();
             }
             catch(Exception ex)
             {
                 throw;
             }
+            
         }
 
         public void Insert(Registration product)
@@ -51,19 +50,26 @@ namespace DataAccessLayer
             {
                 var res =_regcontext.Registration.FromSqlRaw<Registration>($"exec Checkpassword '{username}','{password}'").ToList();
 
-                if (res != null || res.Count > 0)
-                {
+                if (res.Count > 0 & res != null)
                     return true;
-                }
                 else
-                {
                     return false;
-                }
+                
             }
             catch (Exception ex)
             {
                 throw;
             }
         }
+        public bool Register(Registration regs)
+        {
+            var res = _regcontext.Registration.FromSqlRaw<Registration>($"exec CheckRegistration '{regs.UserName}','{regs.Password}',''{regs.ConformPassword}").ToList();
+            if (res.Count > 0 & res != null)
+                return false;
+            else
+                return true;
+
+        }
+
     }
 }

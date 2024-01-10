@@ -58,7 +58,7 @@
 <body>
     <div class="login-container">
         <h1>Login</h1>
-        <form asp-action="Authentication" method="get">
+        <form asp-action="AuthenticationR" method="get">
             <div>
                 <input asp-for="UserName" type="text" name="email" placeholder="Enter your Email" required>
                 <span asp-validation-for="UserName"></span>
@@ -68,7 +68,7 @@
                 <span asp-validation-for="Password"></span>
             </div><br />
             <div>
-                <input asp-for="ConformPassword" type="password" name="ConformPassword" placeholder="ConformPassword" required>
+                <input asp-for="Password" type="password" name="ConformPassword" placeholder="ConformPassword" required>
                 <span asp-validation-for="ConformPassword"></span>
             </div><br />
             <input type="submit" value="Register">

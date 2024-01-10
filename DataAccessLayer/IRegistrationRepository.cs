@@ -14,5 +14,8 @@ namespace DataAccessLayer
         public IEnumerable<Registration> GetAllRegistration();
 
         public bool Login(string username, string password);
+
+        public bool Register(Registration regs);
+      
     }
 }

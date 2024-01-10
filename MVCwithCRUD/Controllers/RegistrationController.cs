@@ -5,35 +5,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer;
+using Microsoft.Extensions.Configuration;
 
 namespace MVCwithCRUD.Controllers
 {
     public class RegistrationController : Controller
     {
+
+        private readonly IRegistrationRepository _reg;
+        private readonly string _configuration;
+        public RegistrationController(IRegistrationRepository reg, IConfiguration configuration)
+        {
+            _reg = reg;
+            _configuration = configuration.GetConnectionString("DbConnection");
+        }
         // GET: RegistrationController
         public ActionResult Index()
         {
             return View("RegistrationPage");
         }
 
-        // GET: RegistrationController/Details/5
-        public ActionResult Authentication(Registration reg)
+       // GET: RegistrationController/Details/5
+        public ActionResult AuthenticationR(Registration reg)
         {
-            if (reg.UserName != )
+            try
             {
-                ModelState.AddModelError("DateofMaufacture", "DOM should be less than today");
-                return View("Create", values);
+                var resultreg = _reg.Register(reg);
+
+
+                if (resultreg == true)
+                {
+                    _reg.Insert(reg);
+
+                    return View("LoginPage");
+                }
+                else
+                {
+                    ModelState.AddModelError("ConformPassword", "Already Exist");
+                    return View("RegistrationPage");
+                }
+
             }
-            if (ModelState.IsValid)
+            catch
             {
-                _mDtl.InsertMVC(values);
-                return RedirectToAction(nameof(Index));
+                return View("Error");
             }
-            else
-            {
-                return View("Create", values);
-            }
-            return View();
         }
 
         // GET: RegistrationController/Create
