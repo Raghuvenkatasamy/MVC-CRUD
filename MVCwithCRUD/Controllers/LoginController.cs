@@ -11,7 +11,7 @@ namespace MVCwithCRUD.Controllers
 {
     public class logindlt
     {
-        public string Email { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
 
     }
@@ -47,12 +47,12 @@ namespace MVCwithCRUD.Controllers
         {
             try
             {
-                var resultreg =_reg.Login(log.Email,log.Password);
+                var resultreg =_reg.Login(log.Username,log.Password);
 
                 
                 if (resultreg == true)
                 {
-                    return Redirect("/Mobiledlt/index");
+                    return Redirect("/Home/Index");
                 }
                 else
                 {

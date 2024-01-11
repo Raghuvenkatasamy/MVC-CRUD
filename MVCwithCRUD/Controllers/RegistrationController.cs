@@ -25,7 +25,12 @@ namespace MVCwithCRUD.Controllers
             return View("RegistrationPage");
         }
 
-       // GET: RegistrationController/Details/5
+        public ActionResult List()
+        {
+            var list = _reg.GetAllRegistration();
+            return View("View", list);
+        }
+
         public ActionResult AuthenticationR(Registration reg)
         {
             try
@@ -37,7 +42,7 @@ namespace MVCwithCRUD.Controllers
                 {
                     _reg.Insert(reg);
 
-                    return View("LoginPage");
+                    return Redirect("/Login/index");
                 }
                 else
                 {
@@ -55,21 +60,43 @@ namespace MVCwithCRUD.Controllers
         // GET: RegistrationController/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                return View("Registerform",new Registration());
+            }
+            catch
+            {
+                return View("Error");
+            }
         }
 
         // POST: RegistrationController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Registration values)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var resultreg = _reg.Register(values);
+
+
+                if (resultreg == true)
+                {
+                    _reg.Insert(values);
+
+                    var list = _reg.GetAllRegistration();
+                    return View("View", list);
+                }
+                else
+                {
+                    ModelState.AddModelError("ConformPassword", "Already Exist");
+                    return View("Create",values);
+                }
+
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
 

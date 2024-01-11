@@ -36,7 +36,7 @@ namespace DataAccessLayer
         {
             try
             {
-                _regcontext.Database.ExecuteSqlRaw($"exec Insertegdata '{product.UserName}','{product.Password}','{product.ConformPassword}'");
+                _regcontext.Database.ExecuteSqlRaw($"exec InsertRegistration '{product.UserName}','{product.Password}','{product.ConformPassword}'");
             }
             catch (Exception ex)
             {
@@ -48,9 +48,9 @@ namespace DataAccessLayer
         {
             try
             {
-                var res =_regcontext.Registration.FromSqlRaw<Registration>($"exec Checkpassword '{username}','{password}'").ToList();
+                var check = _regcontext.Registration.FromSqlRaw<Registration>($"exec Checkpassword '{username}','{password}'").ToList();
 
-                if (res.Count > 0 & res != null)
+                if (check.Count > 0 & check != null)
                     return true;
                 else
                     return false;
@@ -63,7 +63,7 @@ namespace DataAccessLayer
         }
         public bool Register(Registration regs)
         {
-            var res = _regcontext.Registration.FromSqlRaw<Registration>($"exec CheckRegistration '{regs.UserName}','{regs.Password}',''{regs.ConformPassword}").ToList();
+            var res = _regcontext.Registration.FromSqlRaw<Registration>($"exec CheckRegistration '{regs.UserName}','{regs.Password}','{regs.ConformPassword}'").ToList();
             if (res.Count > 0 & res != null)
                 return false;
             else
