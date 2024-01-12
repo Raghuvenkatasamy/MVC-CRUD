@@ -12,9 +12,32 @@ namespace DataAccessLayer
         {
             _regcontext = context;
         }
+
+        public void DeleteRecord(long id)
+        {
+            try
+            {
+                var record = _regcontext.Database.ExecuteSqlRaw($"exec DeleteRecord {id}");
+                
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public Registration FindProductByNumber(long number)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var record= _regcontext.Registration.FromSqlRaw<Registration>($"exec Getbyid {number}").ToList().FirstOrDefault();
+                return record;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+           
         }
 
         public IEnumerable<Registration> GetAllRegistration()
@@ -71,5 +94,17 @@ namespace DataAccessLayer
 
         }
 
+        public void UpdateRecord(long id, Registration regs)
+        {
+            try
+            {
+               var update = _regcontext.Database.ExecuteSqlRaw($"exec UpdateRecord {id},'{regs.UserName}','{regs.Password}','{regs.ConformPassword}'");
+               
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

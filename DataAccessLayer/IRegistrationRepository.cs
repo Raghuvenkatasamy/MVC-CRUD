@@ -16,6 +16,8 @@ namespace DataAccessLayer
         public bool Login(string username, string password);
 
         public bool Register(Registration regs);
-      
+        public void DeleteRecord(long id);
+        public void UpdateRecord(long id,Registration regs);
+
     }
 }
