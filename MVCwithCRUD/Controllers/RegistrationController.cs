@@ -134,21 +134,19 @@ namespace MVCwithCRUD.Controllers
         {
             try
             {
-                var resultreg = _reg.Register(values);
+//                var resultreg = _reg.Register(values);
 
 
-                if (resultreg == true)
-                {
                     _reg.UpdateRecord(id,values);
 
                     var list = _reg.GetAllRegistration();
                     return View("View", list);
-                }
-                else
-                {
-                    ModelState.AddModelError("ConformPassword", "Already Exist");
-                    return View("RegisterEdit", values);
-                }
+                
+                //else
+                //{
+                //    ModelState.AddModelError("ConformPassword", "Already Exist");
+                //    return View("RegisterEdit", values);
+                //}
 
             }
             catch
