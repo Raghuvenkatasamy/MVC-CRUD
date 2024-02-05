@@ -1,17 +1,11 @@
 ﻿@model IEnumerable<DataAccessLayer.Registration>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "View";
 }
 
-<!DOCTYPE html>
+<h1>View</h1>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>View</title>
-</head>
-<body>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -49,13 +43,11 @@
                 @Html.DisplayFor(modelItem => item.ConformPassword)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.RegistrationId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RegistrationId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RegistrationId">Delete</a>
+                @Html.ActionLink("Edit", "Edit", new {id=item.RegistrationId}) |
+                @Html.ActionLink("Details", "Details", new { id = item.RegistrationId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RegistrationId })
             </td>
         </tr>
 }
     </tbody>
 </table>
-</body>
-</html>
